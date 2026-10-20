@@ -284,7 +284,7 @@
             <div class="row g-2 mb-3">
                 <div class="col-md-3"><div class="p-3 rounded" style="background:var(--soft-pink)"><strong>1️⃣ Name</strong></div></div>
                 <div class="col-md-3"><div class="p-3 rounded" style="background:var(--soft-pink)"><strong>2️⃣ Age</strong></div></div>
-                <div class="col-md-3"><div class="p-3 rounded" style="background:var(--soft-pink)"><strong>3️⃣ State</strong></div></div>
+                <div class="col-md-3"><div class="p-3 rounded" style="background:var(--soft-pink)"><strong>3️⃣ Gender</strong></div></div>
                 <div class="col-md-3"><div class="p-3 rounded" style="background:var(--soft-pink)"><strong>4️⃣ Contact Number</strong></div></div>
             </div>
             <p class="fs-6 fw-semibold mb-3">📌 Save My Number: <strong>93690 03574</strong></p>
@@ -320,7 +320,7 @@
                     <div class="col-12"><label class="form-label d-flex align-items-center gap-2"><i data-lucide="user" style="width:16px"></i> Full Name *</label><input id="inp_name" type="text" class="form-control" required placeholder="Your full name"></div>
                     <div class="col-12"><label class="form-label d-flex align-items-center gap-2"><i data-lucide="phone" style="width:16px"></i> Phone *</label><input id="inp_phone" type="tel" class="form-control" required placeholder="10-digit number" maxlength="10"></div>
                     <div class="col-6"><label class="form-label d-flex align-items-center gap-2"><i data-lucide="calendar" style="width:16px"></i> Age *</label><input id="inp_age" type="number" class="form-control" required placeholder="Age" min="15" max="65"></div>
-                    <div class="col-6"><label class="form-label d-flex align-items-center gap-2"><i data-lucide="map-pin" style="width:16px"></i> State *</label><input id="inp_state" type="text" class="form-control" required placeholder="Your state"></div>
+                    <div class="col-6"><label class="form-label d-flex align-items-center gap-2"><i data-lucide="users" style="width:16px"></i> Gender *</label><select id="inp_gender" class="form-select" required><option value="">Select Gender</option><option>Female</option><option>Male</option><option>Other</option></select></div>
                     <div class="col-12"><label class="form-label d-flex align-items-center gap-2"><i data-lucide="briefcase" style="width:16px"></i> Profession *</label><select id="inp_profession" class="form-select" required><option value="">Select Profession</option><option>Student</option><option>Housewife</option><option>Working Professional</option><option>Other</option></select></div>
                     <div class="col-12"><button type="submit" class="wa-btn w-100">📲 Send to WhatsApp</button></div>
                 </div>
@@ -376,16 +376,16 @@ mainForm.addEventListener('submit',e=>{
     const name=document.getElementById('inp_name').value.trim();
     const phone=document.getElementById('inp_phone').value.replace(/\D/g,'');
     const age=document.getElementById('inp_age').value;
-    const state=document.getElementById('inp_state').value.trim();
+    const gender=document.getElementById('inp_gender').value;
     const profession=document.getElementById('inp_profession').value;
-    if(!name||phone.length<10||!age||!state||!profession){alert('Please fill all fields correctly.');return}
+    if(!name||phone.length<10||!age||!gender||!profession){alert('Please fill all fields correctly.');return}
 
     // Send to Google Sheet
     const fd=new FormData();
     fd.append('name',name);
     fd.append('phone',phone);
     fd.append('age',age);
-    fd.append('state',state);
+    fd.append('gender',gender);
     fd.append('profession',profession);
     fd.append('source',sourceInfo.value||'Website');
     fd.append('timestamp',new Date().toISOString());
@@ -395,7 +395,7 @@ mainForm.addEventListener('submit',e=>{
     if(typeof fbq!=='undefined'){fbq('track','Contact')}
 
     // WhatsApp
-    const msg=encodeURIComponent(`Hello Ma'am,\n\nI am interested in learning digital skills & earning from home. Here are my details:\n\nName: ${name}\nPhone: ${phone}\nAge: ${age}\nState: ${state}\nProfession: ${profession}\n\nPlease share next steps. Thank you! 💖`);
+    const msg=encodeURIComponent(`Hello Ma'am,\n\nI am interested in learning digital skills & earning from home. Here are my details:\n\nName: ${name}\nPhone: ${phone}\nAge: ${age}\nGender: ${gender}\nProfession: ${profession}\n\nPlease share next steps. Thank you! 💖`);
     window.open(`https://wa.me/${WA_NUMBER_INT}?text=${msg}`,'_blank');
     closeForm();
 });
